@@ -298,6 +298,12 @@
       <version>2.4</version>
     </dependency>
 
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+
     <!--<dependency>-->
       <!--<groupId>com.antgan</groupId>  &lt;!&ndash;自定义&ndash;&gt;-->
       <!--<artifactId>wx-tools</artifactId>    &lt;!&ndash;自定义&ndash;&gt;-->

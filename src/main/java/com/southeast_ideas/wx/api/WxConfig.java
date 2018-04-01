@@ -16,6 +16,8 @@ import java.util.Properties;
  * Time:10:35
  */
 public class WxConfig {
+    //全局的是否正在刷新access token的锁
+    public static final Object GLOBAL_ACCESS_TOKEN_REFRESH_LOCK = new Object();
     private static Logger logger = LoggerFactory.getLogger(WxConfig.class);
     //使用this.getClass().getResourceAsStream(configFile)时，前面需要加/
     //使用this.getClass().getClassLoader().getResourceAsStream(configFile)，前面不需要加/
@@ -29,6 +31,10 @@ public class WxConfig {
     private volatile String aesKey;
     private volatile String mchId;
     private volatile String apiKey;
+
+    //AccessToken
+    private volatile String accessToken;
+    private volatile long expiresTime;
 
     private WxConfig() {
         Properties p = new Properties();
@@ -92,5 +98,33 @@ public class WxConfig {
 
     public String getApiKey() {
         return apiKey;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public long getExpiresTime() {
+        return expiresTime;
+    }
+
+    /**
+     * 强制使AccessToken过期
+     */
+    public void expireAccessToken() {
+        this.expiresTime = 0;
+    }
+
+    /**
+     * 判断AccessToken是否过期
+     * @return
+     */
+    public boolean isAccessTokenExpired() {
+        return System.currentTimeMillis() > this.expiresTime;
+    }
+
+    public synchronized void updateAccessToken(String accessToken, int expiresInSeconds) {
+        this.accessToken = accessToken;
+        this.expiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000l;
     }
 }
