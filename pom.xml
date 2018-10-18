@@ -10,7 +10,7 @@
 
   <properties>
     <junit.version>4.12</junit.version>
-    <spring.version>4.3.10.RELEASE</spring.version>
+    <spring.version>[4.3.18,)</spring.version>
     <!--此处如果使用6.0+的驱动问题较多，有：1.时区、2Column name pattern can not be NULL or empty，可能有更多-->
     <jdbc.version>5.1.38</jdbc.version>
     <javax.servlet-api.version>4.0.0</javax.servlet-api.version>
